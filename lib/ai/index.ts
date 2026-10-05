@@ -10,10 +10,11 @@ export * from "./types";
  * Sesuai aturan: route handler HANYA memanggil fungsi ini, tidak boleh mengimpor mock/remote provider langsung.
  */
 export function getDetectionProvider(): DetectionProvider {
-  const providerType = process.env.AI_PROVIDER ?? "mock";
+  const providerType = (process.env.AI_PROVIDER || "").split(/[\r\n]+/)[0].trim().toLowerCase();
+  const rawEndpoint = process.env.AI_REMOTE_ENDPOINT || "";
+  const endpoint = rawEndpoint.split(/[\r\n]+/)[0].trim();
 
-  if (providerType === "remote") {
-    const endpoint = process.env.AI_REMOTE_ENDPOINT;
+  if (providerType === "remote" || (endpoint && endpoint.startsWith("http"))) {
     if (!endpoint) {
       throw new Error("AI_REMOTE_ENDPOINT belum diisi saat AI_PROVIDER=remote");
     }

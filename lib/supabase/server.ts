@@ -5,10 +5,12 @@ import { Database } from "@/types/database";
 
 export function createClient() {
   const cookieStore = cookies();
+  const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL || "").split(/[\r\n]+/)[0].trim();
+  const supabaseAnonKey = (process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "").split(/[\r\n]+/)[0].trim();
 
   return createServerClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl,
+    supabaseAnonKey,
     {
       cookies: {
         get(name: string) {
@@ -35,13 +37,15 @@ export function createClient() {
 
 // Service Role Client (HANYA UNTUK SERVER-SIDE / ROUTE HANDLER SENSITIF)
 export function createAdminClient() {
-  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!serviceRoleKey) {
+  const rawKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!rawKey) {
     throw new Error("SUPABASE_SERVICE_ROLE_KEY is required for admin operations");
   }
+  const serviceRoleKey = rawKey.split(/[\r\n]+/)[0].trim();
+  const supabaseUrl = (process.env.NEXT_PUBLIC_SUPABASE_URL || "").split(/[\r\n]+/)[0].trim();
 
   return createSupabaseClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    supabaseUrl,
     serviceRoleKey,
     {
       auth: {

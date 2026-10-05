@@ -21,8 +21,8 @@ export class RemoteDetectionProvider implements DetectionProvider {
     if (!endpoint) {
       throw new Error("RemoteDetectionProvider memerlukan AI_REMOTE_ENDPOINT yang valid.");
     }
-    // Hapus trailing slash jika ada agar path /deteksi terbentuk tepat
-    this.baseUrl = endpoint.replace(/\/+$/, "");
+    // Hapus whitespace, quotes, dan trailing slash jika ada agar path /deteksi terbentuk tepat
+    this.baseUrl = endpoint.trim().replace(/^["']+|["']+$/g, "").replace(/\/+$/, "");
   }
 
   async detectDamage(imageUrl: string): Promise<DetectionResponse> {
