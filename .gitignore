@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Testing
+coverage/
+
+# Next.js build output
+.next/
+out/
+build/
+dist/
+
+# Environment files & Secrets (Strictly protected)
+.env
+.env*.local
+.env.development
+.env.test
+.env.production
+*.local
+credentials.json
+*.pem
+*.key
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Python / AI / Virtual environments
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+ruas-ai/
+*.pt
+*.orig
+
+# IDE & OS
+.DS_Store
+.vscode/
+.idea/
+Thumbs.db
+
+# Scratch, scripts, and internal agent artifacts
+scratch/
+scripts/
+tsconfig.tsbuildinfo

@@ -1,0 +1,58 @@
+@import "leaflet/dist/leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #1E8E5A;
+    --color-primary-hover: #166B44;
+    --color-primary-soft: #F0F7F3;
+    --color-primary-active: #0F5333;
+    --color-base: #FFFFFF;
+    --color-surface: #F8FAFC;
+    --color-surface-hover: #F1F5F9;
+    --color-surface-raised: #FFFFFF;
+    --color-text-primary: #0F172A;
+    --color-text-secondary: #475569;
+    --color-text-muted: #94A3B8;
+    --color-border: #E2E8F0;
+    --color-border-subtle: #F1F5F9;
+
+    /* Severity colors */
+    --severity-critical: #DC2626;
+    --severity-high: #EA580C;
+    --severity-medium: #D97706;
+    --severity-low: #1E8E5A;
+
+    /* Status colors */
+    --status-baru: #64748B;
+    --status-diverifikasi: #2563EB;
+    --status-dijadwalkan: #7C3AED;
+    --status-dikerjakan: #D97706;
+    --status-selesai: #1E8E5A;
+    --status-ditolak: #DC2626;
+
+    /* System feedback */
+    --feedback-success: #1E8E5A;
+    --feedback-warning: #D97706;
+    --feedback-error: #DC2626;
+    --feedback-info: #2563EB;
+  }
+
+  /* HARD CONSTRAINT: Light Theme Only. TIDAK ADA DARK MODE. */
+  html {
+    overflow-x: clip;
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-text-primary);
+    font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+}
+
