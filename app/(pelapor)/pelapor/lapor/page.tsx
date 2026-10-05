@@ -130,14 +130,17 @@ export default function LaporPage() {
           upsert: false,
         });
 
-      let publicUrl = photoPreview;
-
-      if (!uploadError) {
-        const { data: urlData } = supabase.storage
-          .from("reports")
-          .getPublicUrl(filePath);
-        publicUrl = urlData.publicUrl;
+      if (uploadError) {
+        console.error("Storage upload error:", uploadError);
+        setErrorMessage("Gagal mengunggah foto ke storage: " + (uploadError.message || "Periksa koneksi Anda."));
+        setSubmitting(false);
+        return;
       }
+
+      const { data: urlData } = supabase.storage
+        .from("reports")
+        .getPublicUrl(filePath);
+      const publicUrl = urlData.publicUrl;
 
       // 2. Panggil API POST /api/reports menyertakan fungsi_jalan
       const res = await fetch("/api/reports", {
@@ -158,7 +161,8 @@ export default function LaporPage() {
       const jsonResult = await res.json();
 
       if (!res.ok) {
-        throw new Error(jsonResult.error?.message || "Gagal mengirimkan laporan");
+        const detailMsg = jsonResult.error?.details ? ` (${jsonResult.error.details})` : "";
+        throw new Error((jsonResult.error?.message || "Gagal mengirimkan laporan") + detailMsg);
       }
 
       const reportId = jsonResult.data?.report?.id;

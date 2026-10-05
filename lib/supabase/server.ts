@@ -1,4 +1,5 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { cookies } from "next/headers";
 import { Database } from "@/types/database";
 
@@ -39,15 +40,10 @@ export function createAdminClient() {
     throw new Error("SUPABASE_SERVICE_ROLE_KEY is required for admin operations");
   }
 
-  return createServerClient<Database>(
+  return createSupabaseClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     serviceRoleKey,
     {
-      cookies: {
-        get: () => undefined,
-        set: () => {},
-        remove: () => {},
-      },
       auth: {
         autoRefreshToken: false,
         persistSession: false,

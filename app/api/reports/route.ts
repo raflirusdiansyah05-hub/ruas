@@ -81,6 +81,7 @@ export async function POST(request: NextRequest) {
           error: {
             message: "Gagal menyimpan data laporan ke database",
             code: "DATABASE_ERROR",
+            details: reportError?.message,
           },
         },
         { status: 500 }
